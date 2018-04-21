@@ -1,0 +1,83 @@
+<html>
+  <head>
+     <meta charset="UTF-8">
+    <!--CDN VUE JS !-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.js"></script>
+    <!--CDN BOOTSTRAP + JQUERY !-->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- CSS !-->
+    <link href="./style.css" rel="stylesheet"></link>
+
+  </head>
+
+  <body>
+    <div class="container" id="app">
+      <div class="col-md-12 tabela">
+        <h2 class="text-center">Lista de Contatos com VueJs </h2>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Sobrenome</th>
+              <th>Contato</th>
+            </tr>
+          </thead>
+          <tr v-for="pessoa in pessoas">
+            <td> {{ pessoa.nome }}</td>
+            <td> {{ pessoa.sobrenome }} </td>
+            <td> {{ pessoa.email }} </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-12">
+        <button class="btn btn-success btn-xl pull-right" data-toggle="modal" data-target="#myModal">
+          Adicionar Contato
+        </button>
+      </div>
+
+      <!-- modal !-->
+      <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Adicionar Contato</h4>
+          </div>
+          <div class="modal-body">
+            <label>Nome</label><br>
+            <input type="text" class="form-control" v-model="novo.nome"  value="" required/><br>
+            <label>Sobrenome</label><br>
+            <input type="text" class="form-control" v-model="novo.sobrenome"  value="" required/><br>
+            <label>Email</label><br>
+            <input type="text" class="form-control" v-model="novo.email"  value="" required><br>
+            <button class="btn btn-success btn-xs" data-dismiss="modal" v-on:click="adicionar()">Salvar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </body>
+
+  <script>
+   var vm = new Vue({
+     el: '#app',
+     data: {
+       novo: {nome: '', sobrenome: '', email: ''},
+       pessoas: [
+         {nome: 'Maxwel', sobrenome: 'Lidogério', email: 'maxwel.silva2@fatec.sp.gov.br' },
+      ]
+     },
+     methods:{
+       adicionar: function() {
+         this.pessoas.push(this.novo);
+         // após inserir o obj novo no array, limpa o obj
+         this.novo = {nome: '', sobrenome: '', email: ''}
+       }
+     }
+   })
+  </script>
+
+</html>
